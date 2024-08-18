@@ -10,6 +10,11 @@ body {
   
 }
 
+#headerBG{
+    background-color: #0652dd;
+    color: white;
+}
+
 .main-login{
     display: flex;
     justify-content: center;

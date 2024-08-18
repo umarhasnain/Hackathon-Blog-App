@@ -24,7 +24,7 @@
 
 <body>
   <div class="quizCourse-main">
-    <div class="header">
+    <div class="header" id="dashboardHeader">
       <div class="logo">
         <h1>TREND RISEBLOG</h1>
 
@@ -32,9 +32,8 @@
       <div class="btn-class">
         <a href="./blogs.html"> <button type="button" id="signIn-btn"
           class="btn btn-outline-primary">Blogs</button></a> 
-        <a> <button type="button" id="signoutBtn" href="./signup.html"
-            class=" btn btn-outline-primary">SignOut</button></a>
-
+        <a href="./signup.html"> <button type="button" id="signoutBtn"
+          class="btn btn-outline-primary">SignOut</button></a> 
        
       </div>
     </div>
@@ -61,24 +60,11 @@
       </div>
     </div>
 
+    <div id="posts-container"></div>
 
-    <div class="courseCards">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title" id="quizName">Blog Heading</h5>
-          <p class="card-text" id="blog_text">
-           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis, temporibus?
-          </p>
-        
-          <div>
-            <h5 id="bloger_name">John</h5>
-          <p>Mon 17 , Aug 2024</p>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
+    <!-- <div id="posts">
+              
+    </div> -->
 
 
 

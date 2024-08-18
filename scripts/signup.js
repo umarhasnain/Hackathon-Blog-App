@@ -12,10 +12,12 @@ import {
 import {
   getFirestore,
   doc,
+  onSnapshot ,
   setDoc,
   Timestamp,
   collection,
   addDoc,
+ query, where, getDocs
 } from "./firebase.js";
 
 const auth = getAuth(app);
@@ -42,7 +44,11 @@ if (btnCreateAccount) {
     } else if (yourSignUpPassword.value <= 8) {
       new AWN().alert("Password Should Not Be Grater Then 8");
     }
-
+    
+    
+    let userName = yourSignUpName.value;
+    let userEmail = yourSignUpEmail.value;
+    let userPassword = yourSignUpPassword.value;
     if (
       yourSignUpName.value !== "" ||
       yourSignUpEmail.value !== "" ||
@@ -55,24 +61,36 @@ if (btnCreateAccount) {
       )
         .then((userCredential) => {
           // Signed up
-          const user = userCredential.user;
-          new AWN().success("Account SignUp Succesfully With Google");
-         
-
+          let user = userCredential.user;
+          
+          
+   
         async  function userDataSent() {
-            const docRef = await addDoc(collection(db, "users"), {
-              name:yourSignUpName.value,
-              email:yourSignUpEmail.value,
-              password:yourSignUpPassword.value
+            // const docRef = await addDoc(collection(db, "users" , user.uid), {
+            //   name:userName,
+            //   email:userEmail,
+            //   password:userPassword
+            // });
+            // console.log("Document written with ID: ", docRef.id);
+
+            await setDoc(doc(db, "users", user.uid), {
+              name:userName,
+             email:userEmail,
+             password:userPassword,
+             uid:user.uid
             });
-            console.log("Document written with ID: ", docRef.id);
+                  console.log("Document written with ID: ", user.uid);
+
           }
           userDataSent()
+          new AWN().success("Account SignUp Succesfully");
          setTimeout(() => {
           window.location.href = "./login.html";
-         }, 4000);
+         }, 3000);
           // ...
+          console.log(user);
         })
+        
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;

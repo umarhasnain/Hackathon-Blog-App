@@ -7,6 +7,11 @@
 .body {
     background-color: rgb(157, 156, 156)e;
 }
+#headerBG{
+    background-color: #0652dd;
+    color: white;
+}
+
 
 .main {
     margin-top: 40px;
