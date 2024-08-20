@@ -14,7 +14,7 @@ import {
   doc,
   onSnapshot ,
   setDoc,
-  Timestamp,
+  serverTimestamp,
   collection,
   addDoc,
  query, where, getDocs

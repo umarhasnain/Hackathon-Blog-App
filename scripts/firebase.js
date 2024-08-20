@@ -4,12 +4,13 @@ import {
   doc,
   setDoc,
   getDocs,
-  Timestamp,
+  serverTimestamp,
   collection,
   addDoc,
    onSnapshot,
   query,
   where,
+  orderBy
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -28,9 +29,10 @@ const db = getFirestore(app);
 export { app, db, getFirestore,
   doc,
   setDoc,
-  Timestamp,
+  serverTimestamp,
   collection,
   addDoc, getDocs,
   onSnapshot,
  query,
- where,};
+ where,
+ orderBy};

@@ -15,13 +15,14 @@ import {
   getFirestore,
   doc,
   setDoc,
-  Timestamp,
+  serverTimestamp,
   collection,
   addDoc,
   getDocs,
   onSnapshot,
   query,
   where,
+  orderBy,
 } from "./firebase.js";
 // import {
 //   db,
@@ -97,7 +98,8 @@ getUserData();
 let post = () => {
   let blog_heading = document.getElementById("blog_heading");
   let blogTextArea = document.getElementById("blogTextArea");
-  let date = new Date().toDateString();
+  // let date = new Date().toDateString();
+  let dateTime = serverTimestamp()
   let loader = document.getElementById("loader");
   loader.style.display = "block";
   async function sentData() {
@@ -110,9 +112,11 @@ let post = () => {
             name: user.name,
             email: user.email,
             uid: user.uid,
-            date: date,
+            dateTime:dateTime,
+            // date: date,
+            // date:Timestamp,
             // dateFB: Timestamp,
-            name: "Umar",
+            // name: "Umar",
           });
 
           console.log("Document written with ID: ", docRef.id);
@@ -133,73 +137,6 @@ let post = () => {
 let postBlogBtn = document.getElementById("postBlogBtn");
 postBlogBtn.addEventListener("click", post);
 
-// let post = () => {
-//   let blog_heading = document.getElementById("blog_heading");
-//   let blogTextArea = document.getElementById("blogTextArea");
-
-//   let date = new Date().toDateString();
-
-//   function result() {
-//     onAuthStateChanged(auth, (user) => {
-//       if (user) {
-//         const uid = user.uid;
-//         var date = new Date().toDateString();
-//         console.log("Current User", uid, user);
-//         const docRef = addDoc(collection(db, "blogs"), {
-//           blog_heading: blog_heading.value,
-//           blogTextArea: blogTextArea.value,
-//           name: user.name,
-//           email: user.email,
-//           uid: user.uid,
-//           date: date,
-//           dateFB: Timestamp,
-//         });
-//         console.log("result Submitted", docRef.id);
-//       } else {
-//         // User is signed out
-//         console.log("Current User SignOUt");
-//       }
-//       blog_heading.value = "";
-//       blogTextArea.value = "";
-//     });
-//   }
-//   result();
-// };
-
-// // }
-
-// let readData = () => {
-//   const q = query(collection(db, "blogs"),);
-// const unsubscribe = onSnapshot(q, (querySnapshot) => {
-//   const blog = [];
-//   querySnapshot.forEach((doc) => {
-//       blog.push(doc.data());
-//   });
-//   console.log("Current blog in CA: ", blog[0].blog_heading);
-// });
-
-// }
-
-// const querySnapshot = await getDocs(collection(db, "blogs"));
-// querySnapshot.forEach((doc) => {
-//   // doc.data() is never undefined for query doc snapshots
-//   console.log(doc.id, " => ", doc.data());
-//   quizName.innerHTML=`${doc.blog_heading}`
-
-// });
-
-// let showData = () => {
-//   // readData()
-//   let quizName = document.getElementById("quizName");
-//   let blog_text = document.getElementById("blog_text");
-//   let bloger_name = document.getElementById("bloger_name");
-
-//   quizName.innerHTML=`${doc.data.blog_heading}`
-//   // blog_text.innerHTML=`${blog.blogTex}
-
-// }
-
-// showData()
 
 
 onAuthStateChanged(auth, (user) => {
@@ -210,16 +147,17 @@ onAuthStateChanged(auth, (user) => {
     
 async function displayPosts() {
   const postsContainer = document.getElementById("posts-container");
-  const q = query(collection(db, "blogs"), where("uid", "==", uid));
+  const q = query(collection(db, "blogs"), where("uid", "==", uid),orderBy("dateTime"));
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     const blog = [];
 
+postsContainer.innerHTML=''
   querySnapshot.forEach((doc) => {
 
     blog.push(doc.data());
 
     // Create a card element
-    const card = document.createElement("div");
+    var card = document.createElement("div");
     card.className = "card";
    
 
