@@ -24,20 +24,19 @@ import {
   where,
   orderBy,
 } from "./firebase.js";
-// import {
-//   db,
-//   getFirestore,
-//   doc,
-//   setDoc,
-//   collection,
-//   addDoc,
-//   getDocs,
-//   onSnapshot,
-//   query,
-//   where,
-// } from "./firebase.js";
+
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
+
 
 const auth = getAuth(app);
+const storage = getStorage(app);
+const storageRef = ref(storage);
 
 let loader = document.getElementById("loader");
 loader.style.display = "none";
@@ -109,10 +108,10 @@ let post = () => {
           const docRef = await addDoc(collection(db, "blogs"), {
             blog_heading: blog_heading.value,
             blogTextArea: blogTextArea.value,
-            name: user.name,
-            email: user.email,
-            uid: user.uid,
-            dateTime:dateTime,
+            // name: user.name,
+            // email: user.email,
+            // uid: user.uid,
+            // dateTime:dateTime,
             // date: date,
             // date:Timestamp,
             // dateFB: Timestamp,
